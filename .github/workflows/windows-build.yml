@@ -26,21 +26,20 @@ jobs:
         pip install pyinstaller pillow
 
     - name: Rename main.py to soltech_pdf_tool.py
-      run: copy main.py soltech_pdf_tool.py
+      run: rename main.py soltech_pdf_tool.py
 
-    - name: Copy icon and create README
+    - name: Create README file
       run: |
-        copy soltech_pdf_tool.ico soltech_pdf_tool.ico
-        echo SOLTECH PDF Tool - Merge & Split >> README.txt
+        echo SOLTECH PDF Tool - Merge & Split > README.txt
         echo ------------------------------------ >> README.txt
         echo This tool helps you merge and split PDF files offline. >> README.txt
-        echo >> README.txt
+        echo. >> README.txt
         echo Just double-click soltech_pdf_tool.exe after extracting this ZIP. >> README.txt
 
     - name: Build EXE with PyInstaller
       run: |
         pyinstaller --onefile --windowed --icon=soltech_pdf_tool.ico soltech_pdf_tool.py
-        move dist\soltech_pdf_tool.exe dist\SOLTECH_PDF_TOOL.exe
+        rename dist\soltech_pdf_tool.exe dist\SOLTECH_PDF_TOOL.exe
         copy README.txt dist\README.txt
 
     - name: Zip EXE and README
