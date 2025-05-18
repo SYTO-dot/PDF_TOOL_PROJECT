@@ -74,8 +74,11 @@ class PDFTool(QWidget):
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"An error occurred while splitting:\n{str(e)}")
 
-if __name__ == "__main__":
+def main():
     app = QApplication(sys.argv)
     window = PDFTool()
     window.show()
     sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    main()
