@@ -22,10 +22,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirement.txt
 
-      - name: Install pyinstaller
+      - name: Install PyInstaller
         run: pip install pyinstaller
 
-      - name: Build with pyinstaller
+      - name: Build EXE
         run: pyinstaller --onefile main.py
 
       - name: Upload EXE
