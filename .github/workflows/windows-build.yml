@@ -34,8 +34,9 @@ jobs:
         echo SOLTECH PDF Tool - Merge & Split > README.txt
         echo ------------------------------------ >> README.txt
         echo This tool helps you merge and split PDF files offline. >> README.txt
-        echo. >> README.txt
+        "" >> README.txt
         echo Just double-click soltech_pdf_tool.exe after extracting this ZIP. >> README.txt
+      shell: powershell
 
     - name: Build EXE with PyInstaller
       run: |
