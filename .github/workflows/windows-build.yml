@@ -29,13 +29,17 @@ jobs:
       run: Rename-Item -Path main.py -NewName soltech_pdf_tool.py
       shell: powershell
 
+    - name: Verify icon exists
+      run: Get-Item soltech_pdf_tool.ico
+      shell: powershell
+
     - name: Create README file
       run: |
-        echo "SOLTECH PDF Tool - Merge & Split" > README.txt
-        echo "------------------------------------" >> README.txt
-        echo "This tool helps you merge and split PDF files offline." >> README.txt
-        echo "" >> README.txt
-        echo "Just double-click soltech_pdf_tool.exe after extracting this ZIP." >> README.txt
+        Set-Content -Path README.txt -Value "SOLTECH PDF Tool - Merge & Split"
+        Add-Content -Path README.txt -Value "------------------------------------"
+        Add-Content -Path README.txt -Value "This tool helps you merge and split PDF files offline."
+        Add-Content -Path README.txt -Value ""
+        Add-Content -Path README.txt -Value "Just double-click SOLTECH_PDF_TOOL.exe after extracting this ZIP."
       shell: powershell
 
     - name: Build EXE with PyInstaller
