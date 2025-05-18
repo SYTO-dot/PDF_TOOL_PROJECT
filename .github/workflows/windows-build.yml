@@ -23,14 +23,31 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirement.txt
-        pip install pyinstaller
+        pip install pyinstaller pillow
+
+    - name: Rename main.py to soltech_pdf_tool.py
+      run: copy main.py soltech_pdf_tool.py
+
+    - name: Copy icon and create README
+      run: |
+        copy soltech_pdf_tool.ico soltech_pdf_tool.ico
+        echo SOLTECH PDF Tool - Merge & Split >> README.txt
+        echo ------------------------------------ >> README.txt
+        echo This tool helps you merge and split PDF files offline. >> README.txt
+        echo >> README.txt
+        echo Just double-click soltech_pdf_tool.exe after extracting this ZIP. >> README.txt
 
     - name: Build EXE with PyInstaller
       run: |
-        pyinstaller --onefile --windowed main.py
+        pyinstaller --onefile --windowed --icon=soltech_pdf_tool.ico soltech_pdf_tool.py
+        move dist\soltech_pdf_tool.exe dist\SOLTECH_PDF_TOOL.exe
+        copy README.txt dist\README.txt
+
+    - name: Zip EXE and README
+      run: powershell Compress-Archive -Path dist\* -DestinationPath SOLTECH_PDF_TOOL_WINDOWS.zip
 
     - name: Upload EXE artifact
       uses: actions/upload-artifact@v4
       with:
         name: SOLTECH_PDF_TOOL_WINDOWS
-        path: dist/main.exe
+        path: SOLTECH_PDF_TOOL_WINDOWS.zip
