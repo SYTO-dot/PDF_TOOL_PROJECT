@@ -2,8 +2,10 @@ import sys
 import os
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QPushButton, QFileDialog,
-    QLabel, QMessageBox, QInputDialog
+    QLabel, QMessageBox, QInputDialog, QSplashScreen
 )
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt, QTimer
 from PyPDF2 import PdfMerger, PdfReader, PdfWriter
 
 class PDFTool(QWidget):
@@ -76,8 +78,21 @@ class PDFTool(QWidget):
 
 def main():
     app = QApplication(sys.argv)
+
+    # Splash screen setup
+    splash_path = os.path.join(os.path.dirname(__file__), "splash.png")
+    splash_pix = QPixmap(splash_path)
+
+    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+    splash.setMask(splash_pix.mask())
+    splash.show()
+
+    # Pause for 2 seconds then show main window
+    QTimer.singleShot(2000, splash.close)  # close splash after 2000 ms
+
     window = PDFTool()
-    window.show()
+    QTimer.singleShot(2000, window.show)  # show main window after splash
+
     sys.exit(app.exec_())
 
 if __name__ == "__main__":
